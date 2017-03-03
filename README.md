@@ -6,9 +6,9 @@ A Java implementation of the Master/Worker Design Pattern using JMS and RMI.
 ## Steps to use
 
 1. Setup Glassfish.
-   1. Install [Glassfish](glassfish.java.net/download.html).
+   1. Install [Glassfish](http://glassfish.java.net/download.html).
    2. Run the command ```asadmin start-domain``` in the bin folder of Glassfish.
-   3. Access the Glassfish console on [localhost](localhost:4848).
+   3. Access the Glassfish console on [localhost](http://localhost:4848).
    4. Create a Connection Factory named jms/TestConnectionFactory, and Destination Resources named jms/MasterQueue, jms/WorkerQueue and jms/ResultQueue.
 
 2. Create concrete implementations of Job, Master, and Worker. 
