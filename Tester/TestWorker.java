@@ -25,11 +25,7 @@ public class TestWorker extends Worker{
 	}
 
 	@Override
-	public void handleResult(Object result) {
-		try {
-			this.addToResultQueue(result);
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
+	public Object handleResult(Object result) {
+		return result;
 	}
 }

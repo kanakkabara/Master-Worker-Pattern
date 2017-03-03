@@ -30,8 +30,11 @@ public abstract class Worker implements MessageListener {
 	public void onMessage(Message jmsMessage) {
 		try {
 	        Job newJob = (Job)((ObjectMessage) jmsMessage).getObject();
-	        Object result = handleNewJob(newJob);
-	        handleJobResult(result);
+	        Object result = handleResult(handleNewJob(newJob));
+	        
+	        if(result!=null)
+	        	newJob.setResponse(result);
+			this.addToResultQueue(newJob);
 	    } catch (JMSException e) {
 	        System.err.println("Failed to receive message");
 	    }
@@ -42,7 +45,7 @@ public abstract class Worker implements MessageListener {
 	}
 	
 	//TODO
-	public void addToResultQueue(Object result) throws JMSException{
+	private void addToResultQueue(Object result) throws JMSException{
 		this.resultQueueWriter.send(prepare(result));
 	}
 	
@@ -54,5 +57,5 @@ public abstract class Worker implements MessageListener {
 	}
 	
 	public abstract Object handleNewJob(Job newJob);
-	public abstract void handleJobResult(Object result);
+	public abstract Object handleResult(Object result);
 }

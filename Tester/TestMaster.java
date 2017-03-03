@@ -6,7 +6,7 @@ import javax.naming.NamingException;
 import Main.Job;
 import Main.Master;
 
-public class TestMaster extends Master {
+public class TestMaster extends Master{
 	public TestMaster() throws NamingException, JMSException {
 		super();
 	}
@@ -29,7 +29,8 @@ public class TestMaster extends Master {
 	}
 
 	@Override
-	public void handleResult(Object obj) {
-		System.out.println(obj);
+	public Job handleResult(Job obj) {
+		return obj;
 	}
+
 }
