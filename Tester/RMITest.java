@@ -14,6 +14,6 @@ public class RMITest {
 		Random rand = new Random();
 		TestJob newTest = new TestJob(rand.nextInt(10),rand.nextInt(10));
 		System.out.println(newTest);
-		System.out.println((int) x.remoteHandleJob(newTest));
+		System.out.println((int) x.remoteHandleOneJob(newTest));
 	}
 }

@@ -32,5 +32,4 @@ public class TestMaster extends Master{
 	public Job handleResult(Job obj) {
 		return obj;
 	}
-
 }

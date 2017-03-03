@@ -38,6 +38,7 @@ public abstract class Master implements MessageListener{
 		workerQueueWriter = jmsHelper.createWorkerQueueSender();
 		resultQueueReader = jmsHelper.createResultQueueReader();
 		resultQueueReader.setMessageListener(this);
+		System.out.println("All set up, starting Master!");
 	}
 	
 	public Master(MessageConsumer consumer, MessageProducer producer) throws NamingException, JMSException {
@@ -51,10 +52,15 @@ public abstract class Master implements MessageListener{
 	public void onMessage(Message jmsMessage) {
 		try {			
 	        Job result = (Job) ((ObjectMessage) jmsMessage).getObject();
+	        System.out.println("Recvd result: "+result.getResponse());
 	        result = handleResult(result);
+	        System.out.println("After handling result: "+result.getResponse());
 	        result.setStatus(Status.FINISHED);
 	        
-	        responses.put(result.getId(), result);
+	        if(result.getResponse() != null){
+	        	System.out.println("All done!");
+	        	responses.put(result.getId(), result);
+	        }
 	    } catch (JMSException e) {
 	        System.err.println("Failed to receive message");
 	    }
@@ -80,6 +86,7 @@ public abstract class Master implements MessageListener{
 	}
 	
 	public void addToWorkerQueue(Job job) throws JMSException{
+		System.out.println("Queued job for workers: "+job);
 		job.setStatus(Status.QUEUED);
 		this.workerQueueWriter.send(prepare(job));
 	}

@@ -26,7 +26,15 @@ public class ServerImplementation extends UnicastRemoteObject implements MasterS
 		}
 	}
 	
-	public Object remoteHandleJob(Job job) throws RemoteException{
+	public Object remoteHandleOneJob(Job job) throws RemoteException{
 		return master.handleOneJob(job);
+	}
+
+	public void remotePushJob(Job job) throws RemoteException {
+		master.handleNewJob(job);
+	}
+
+	public Object getResponse(Job job) throws RemoteException {
+		return master.getResponse(job.getId());
 	}
 }
